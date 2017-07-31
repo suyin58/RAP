@@ -11,6 +11,8 @@ import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
+import com.wjs.openApi.OpenApiMockRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.ServletActionContext;
 
@@ -42,14 +44,9 @@ public class MockAction extends ActionBase {
     private MockMgr mockMgr;
     private String actionData;
     private String url;
-
-    public String getActionData() {
-        return actionData;
-    }
-
-    public void setActionData(String actionData) {
-        this.actionData = actionData;
-    }
+    
+	
+	
 
     public String getUrl() {
         return url;
@@ -480,4 +477,76 @@ public class MockAction extends ActionBase {
 
         return SUCCESS;
     }
+    
+    
+    
+    // suzy add start
+    private String apiData;
+    private String actionUrl;
+    private String description;
+    
+    public String getActionUrl() {
+		return actionUrl;
+	}
+
+	public void setActionUrl(String actionUrl) {
+		this.actionUrl = actionUrl;
+	}
+
+	public String getActionData() {
+        return actionData;
+    }
+
+    public void setActionData(String actionData) {
+        this.actionData = actionData;
+    }
+    
+    public String getApiData() {
+		return apiData;
+	}
+
+	public void setApiData(String apiData) {
+		this.apiData = apiData;
+	}
+	
+    
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String mockOpenApi(){
+		String appId = "";
+		String gateway = "";
+//    	appId=35336601687595250,gateway=http://openapi.pc.trunk.wjs-test.com/openapi.api/gateway.do
+		
+		if(org.apache.commons.lang3.StringUtils.isNotEmpty(description) && description.contains(",")){
+			String[] descs = description.split(",");
+			if(descs.length >= 2){
+
+				String appIdInfo = descs[0];
+				if(org.apache.commons.lang3.StringUtils.isNotEmpty(appIdInfo) && appIdInfo.contains("=")){
+					appId = appIdInfo.split("=")[1];
+				}
+				String getwayInfo = descs[1];
+				if(org.apache.commons.lang3.StringUtils.isNotEmpty(getwayInfo) && getwayInfo.contains("=")){
+					gateway = getwayInfo.split("=")[1];
+				}
+			}
+		}
+		
+    	try {
+     		String result = OpenApiMockRequest.sendOpenApi(gateway,appId, actionUrl, apiData);
+    		setContent(result);
+            return SUCCESS;
+		} catch (Exception e) {
+			setContent(e.getMessage());
+			return ERROR;
+		}
+    }
+    
+    // suzy add end
 }

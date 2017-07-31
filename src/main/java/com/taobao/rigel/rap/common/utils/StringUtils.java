@@ -520,9 +520,9 @@ public class StringUtils {
 
     public static boolean validateAccount(String str) {
         if (str == null) return false;
-        if (str.length() < SystemConstant.ACCOUNT_LENGTH_MIN || str.length() > SystemConstant.ACCOUNT_LENGTH_MAX) {
-            return false;
-        }
+//        if (str.length() < SystemConstant.ACCOUNT_LENGTH_MIN || str.length() > SystemConstant.ACCOUNT_LENGTH_MAX) {
+//            return false;
+//        }
         return str.matches(Patterns.LEGAL_ACCOUNT_CHAR + "*");
     }
 

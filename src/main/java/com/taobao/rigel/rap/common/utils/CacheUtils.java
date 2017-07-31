@@ -119,8 +119,12 @@ public class CacheUtils {
     }
 
     public static void init() {
-        getJedis();
-        jedis.flushAll();
-        returnJedis();
+        try {
+			getJedis();
+			jedis.flushAll();
+			returnJedis();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 }

@@ -8,6 +8,7 @@
     #includeNewRapStatic
     <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css"/>
     <link type="text/css" rel="stylesheet" href="myWorkspace.css?_r=$!timeStamp"/>
+    <script src="openApiMock.js"></script>
     <script src="${staticRoot}/js/util/jsformat.js"></script>
     <script src="${staticRoot}/js/util/mock-min.js"></script>
 </head>
@@ -472,6 +473,9 @@
         <textarea style="width:100%;height:150px;overflow-y:auto;" id="mockDataPreviewFloater-container"></textarea>
     </div>
     <div class="div-floater-control">
+    	
+        <input type="button" class="btn btn-default" id="mockOpenApi" onclick="mockOpenApiClick();" value="模拟请求"/>
+    
         <input type="button" class="btn btn-default" onclick="ecui.get('mockDataPreviewFloater').hide();" value="关闭"/>
     </div>
 </div>

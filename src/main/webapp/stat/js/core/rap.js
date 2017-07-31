@@ -2665,6 +2665,7 @@ function deepCopy(o) {
         ws.switchA(_curActionId, true);
     };
 
+   
     ws.showMockData = function(actionId) {
         var action = p.getAction(actionId);
         var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
@@ -4039,8 +4040,8 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id 
-                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData(" 
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: <span name='actionId'>" + a.id 
+                + "</span>) &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"setActionId("+a.id+");ws.showMockData(" 
                 + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA(" 
                 + a.id + "); return false;'>",
                 body = "",
@@ -4381,7 +4382,13 @@ function deepCopy(o) {
             str += "</tr>";
             return str;
         }
-
+        
+        // suzy add start
+        ws.getAction = function(actionId){
+        	var action = p.getAction(actionId);
+        	return action;
+        }
+        // suzy add end
 
         /********************************************************
          *                                                      *
